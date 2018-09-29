@@ -3,6 +3,6 @@
   <input matInput [(ngModel)]="data.url">
 </mat-form-field>
 <mat-dialog-actions align="end">
-  <button mat-raised-button [mat-dialog-close]="data.url">Save</button>
+  <button mat-raised-button [mat-dialog-close]="data.url" [disabled]="!data.url">Save</button>
   <button mat-button [mat-dialog-close]>Cancel</button>  
 </mat-dialog-actions>
