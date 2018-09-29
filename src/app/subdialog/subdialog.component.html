@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Sub-Reddit</h2>
+<mat-form-field hintLabel="Enter a new Sub-Reddit" style="width:400px !important">
+  <input matInput [(ngModel)]="data.url">
+</mat-form-field>
+<mat-dialog-actions align="end">
+  <button mat-raised-button [mat-dialog-close]="data.url">Save</button>
+  <button mat-button [mat-dialog-close]>Cancel</button>  
+</mat-dialog-actions>
