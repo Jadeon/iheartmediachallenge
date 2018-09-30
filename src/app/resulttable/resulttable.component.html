@@ -1,4 +1,18 @@
 
+<div class="content">
+    <div class="label">
+      Subreddit:  
+    </div>
+    <div class="response">
+      {{this.url}}
+    </div>
+    <div style="display:inline-flex">
+      <button mat-raised-button color="warn" (click)="openDialog()">Change Sub-Reddit</button>
+    </div>
+    <div style="display:inline-flex; float:right;">
+      <button mat-raised-button color="warn" (click)="reloadData()">RELOAD DATA</button>
+    </div>
+</div>
 <div class="mat-elevation-z8 data-table">
   <mat-table #table [dataSource]="dataSource" class="resulttable"
   matSort matSortActive="score" matSortDisableClear matSortDirection="asc">

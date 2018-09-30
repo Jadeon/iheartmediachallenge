@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
 import {Observable} from 'rxjs/Observable';
 
 @Injectable({
@@ -11,9 +10,12 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  getPosts(sort: string): Observable<RedditAPI> {
+  getPosts(sort: string, url: string): Observable<RedditAPI> {
     const href= 'https://www.reddit.com/'
-    return this.http.get<RedditAPI>(`${href}r/gaming/top/.json?limit=10`)  
+    const filter= '/top/.json?limit=10'
+    console.log(`${href}${url}${filter}`);
+    return this.http.get<RedditAPI>(`${href}${url}${filter}`)  
+    //r/gaming/top/.json?limit=10
   }
 }
 

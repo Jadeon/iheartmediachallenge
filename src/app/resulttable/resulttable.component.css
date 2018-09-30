@@ -1,3 +1,27 @@
+.content {
+    width: 80%;
+    margin: 20px auto;
+}
+
+.label
+{
+    min-height: 32px;    
+    font-size: 20px;    
+    justify-content:center;
+    display:inline-flex; 
+    margin-right: 2ch
+}
+
+.response
+{
+    min-height: 32px;    
+    font-size: 20px;    
+    justify-content:center;
+    display:inline-flex; 
+    margin-right: 2ch;
+    display:inline-flex; 
+    width: 25ch
+}
 .data-table {
     width: 80%;
     margin: 20px auto;
