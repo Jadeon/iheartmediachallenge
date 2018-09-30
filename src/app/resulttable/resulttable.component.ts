@@ -1,5 +1,5 @@
 import { Component, Input, AfterViewInit, ViewChild } from '@angular/core';
-import { MatSort, MatTableDataSource, MatDialog } from '@angular/material';
+import { MatSort, MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
 import { merge } from 'rxjs/observable/merge';
@@ -9,9 +9,11 @@ import { map } from 'rxjs/operators/map';
 import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { SubdialogComponent } from '../subdialog/subdialog.component';
+import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 @Component({
   selector: 'app-resulttable',
+  template:`<app-snackbar [url]="url"></app-snackbar>`,
   templateUrl: './resulttable.component.html',
   styleUrls: ['./resulttable.component.css']
 })
@@ -29,7 +31,7 @@ export class ResulttableComponent implements AfterViewInit {
   
   @ViewChild(MatSort) sort: MatSort;
   
-  constructor(private http: HttpClient, public dialog: MatDialog){}
+  constructor(private http: HttpClient, public dialog: MatDialog, public snackBar: MatSnackBar){}
 
   openDialog(): void {
     const dialogRef = this.dialog.open(SubdialogComponent, {
@@ -45,6 +47,7 @@ export class ResulttableComponent implements AfterViewInit {
   }
   reloadData(): void{
     this.ngAfterViewInit();
+    this.snackBar.open(`${this.url} is now reloaded`, 'OK', {duration: 2000,});
   }
 
   ngAfterViewInit(){
