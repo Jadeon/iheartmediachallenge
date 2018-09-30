@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { SubdialogComponent } from './subdialog/subdialog.component';
-import { DataService } from './data.service';
 
 export interface DialogData {
   url: string;

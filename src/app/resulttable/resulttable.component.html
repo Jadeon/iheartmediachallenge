@@ -6,45 +6,51 @@
     <div class="response">
       {{this.url}}
     </div>
-    <div style="display:inline-flex">
+    <div class="change-sub">
       <!-- Change Sub Button -->
-      <button mat-raised-button color="warn" (click)="openDialog()">Change Sub-Reddit</button>
+      <button mat-raised-button class="change-sub-btn" (click)="openDialog('')">Change Sub-Reddit</button>
     </div>
-    <div style="display:inline-flex; float:right;">
+    <div class="reload">
       <!-- Reload Data Button -->
-      <button mat-raised-button color="warn" (click)="reloadData()">RELOAD DATA</button>
+      <button mat-raised-button class="reload-btn" (click)="reloadData()">Reload Data</button>
     </div>
 </div>
-<div class="mat-elevation-z8 data-table">
-  <mat-table #table [dataSource]="dataSource" class="resulttable"
-  matSort matSortActive="score" matSortDisableClear matSortDirection="asc">
+  <div class="mat-elevation-z8 data-table" *ngIf="!isLoadingResults">
+    <mat-table #table [dataSource]="dataSource" class="resulttable" 
+    matSort matSortActive="score" matSortDisableClear matSortDirection="asc">
 
-    <!-- Title Column -->
-    <ng-container matColumnDef="title">
-      <mat-header-cell *matHeaderCellDef class="resulttable-header">Title</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.data.title}}</mat-cell>
-    </ng-container>
+      <!-- Title Column -->
+      <ng-container matColumnDef="title">
+        <mat-header-cell *matHeaderCellDef class="resulttable-header">Title</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.data.title}}</mat-cell>
+      </ng-container>
 
-    <!-- Score Column -->
-    <ng-container matColumnDef="score">
-      <mat-header-cell *matHeaderCellDef class="resulttable-header">Score</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.data.score}}</mat-cell>
-    </ng-container>
+      <!-- Score Column -->
+      <ng-container matColumnDef="score">
+        <mat-header-cell *matHeaderCellDef class="resulttable-header">Score</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.data.score}}</mat-cell>
+      </ng-container>
 
-    <!-- Comments Column -->
-    <ng-container matColumnDef="comment">
-      <mat-header-cell *matHeaderCellDef class="resulttable-header">Comments</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.data.num_comments}}</mat-cell>
-    </ng-container>
+      <!-- Comments Column -->
+      <ng-container matColumnDef="comment">
+        <mat-header-cell *matHeaderCellDef class="resulttable-header">Comments</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.data.num_comments}}</mat-cell>
+      </ng-container>
 
-    <!-- URL Column -->
-    <ng-container matColumnDef="url">
-      <mat-header-cell *matHeaderCellDef class="resulttable-header">URL</mat-header-cell>
-      <mat-cell *matCellDef="let row"><a href="http://www.reddit.com/{{row.data.permalink}}">{{row.data.permalink}}</a></mat-cell>
-    </ng-container>
+      <!-- URL Column -->
+      <ng-container matColumnDef="url">
+        <mat-header-cell *matHeaderCellDef class="resulttable-header">URL</mat-header-cell>
+        <mat-cell *matCellDef="let row"><a href="http://www.reddit.com/{{row.data.permalink}}">{{row.data.permalink}}</a></mat-cell>
+      </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-  </mat-table>
-</div>  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
+  </div>  
+  <div class="loading" *ngIf="isLoadingResults">
+    Loading Results ...
+  </div>
+  <div class="nodata" *ngIf="dataSource.data.length == 0">
+    No information can be returned with the given url...
+  </div>
 

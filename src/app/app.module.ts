@@ -6,7 +6,6 @@ import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { SubdialogComponent } from './subdialog/subdialog.component';
-
 import { HttpClientModule } from '@angular/common/http';
 import { ResulttableComponent } from './resulttable/resulttable.component';
 

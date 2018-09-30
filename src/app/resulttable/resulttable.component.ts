@@ -1,4 +1,4 @@
-import { Component, Input, AfterViewInit, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, OnChanges } from '@angular/core';
 import { MatSort, MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../data.service';
@@ -9,16 +9,14 @@ import { map } from 'rxjs/operators/map';
 import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { SubdialogComponent } from '../subdialog/subdialog.component';
-import { SnackbarComponent } from '../snackbar/snackbar.component';
 
 @Component({
   selector: 'app-resulttable',
-  template:`<app-snackbar [url]="url"></app-snackbar>`,
   templateUrl: './resulttable.component.html',
   styleUrls: ['./resulttable.component.css']
 })
 
-export class ResulttableComponent implements AfterViewInit {
+export class ResulttableComponent implements AfterViewInit, OnChanges {
   displayedColumns = ['title', 'score', 'comment', 'url'];
   dataSource = new MatTableDataSource()
   dataService: DataService;
@@ -28,26 +26,46 @@ export class ResulttableComponent implements AfterViewInit {
   isRateLimitReached = false;
 
   url: string = 'r/all';
+  prevurl: string= '';
   
   @ViewChild(MatSort) sort: MatSort;
   
   constructor(private http: HttpClient, public dialog: MatDialog, public snackBar: MatSnackBar){}
 
-  openDialog(): void {
+  openDialog(optional: string): void {
+    var regex = new RegExp('^r/[-a-zA-Z0-9]*[a-zA-Z90-9_]{2,23}$')
+    
     const dialogRef = this.dialog.open(SubdialogComponent, {
       width: '450px',
-      data: {url: this.url}
+      data: {url: this.url, optional}
     });
 
-  dialogRef.afterClosed().subscribe(
-    result => { 
+  dialogRef.afterClosed().subscribe(result => { 
+      this.prevurl = this.url;
       this.url = result;
-      this.ngAfterViewInit();
+      //check if url was undefined, or empty, if either case keep previous url.
+      if(this.url == undefined || this.url.trim()==''){
+        this.url = this.prevurl
+      }
+      //make sure url matches appropriate regex format to ignore malformed urls.
+      if(!regex.test(this.url)){
+        this.openDialog('Wrong Sub-Reddit Format - Use:"r/<subredditname>"');
+      }
+      //if url is not the same as the previous refresh the DOM
+      else if(this.prevurl != this.url )
+      {
+        this.ngAfterViewInit();
+      }
     });  
   }
-  reloadData(): void{
+
+ ngOnChanges(){
+    
+  }
+  
+  reloadData(): void{    
     this.ngAfterViewInit();
-    this.snackBar.open(`${this.url} is now reloaded`, 'OK', {duration: 2000,});
+    this.snackBar.open(`${this.url} is now reloaded`, 'OK', {duration: 3000,});
   }
 
   ngAfterViewInit(){
@@ -64,7 +82,6 @@ export class ResulttableComponent implements AfterViewInit {
         this.isLoadingResults = false;
         this.isRateLimitReached = false;
         this.resultsLength = data.data.dist;
-        console.log(this.resultsLength);
         return data.data.children;
       }),
       catchError(() => {
@@ -72,7 +89,8 @@ export class ResulttableComponent implements AfterViewInit {
         this.isRateLimitReached = true;
         return observableOf([]);
       })
-    ).subscribe(data => this.dataSource.data = data);  
+    ).subscribe(data => this.dataSource.data = data);
+    console.log(this.dataSource.data.length)  
   } 
 }
 

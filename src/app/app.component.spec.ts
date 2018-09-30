@@ -1,6 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 import {ComponentFixture} from '@angular/core/testing/src/component_fixture';
+
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
   let app: any;
