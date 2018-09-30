@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { SubdialogComponent } from './subdialog/subdialog.component';
+import { DataService } from './data.service';
 
 export interface DialogData {
   url: string;
@@ -13,10 +14,9 @@ export interface DialogData {
 })
 export class AppComponent {
   public title: string = 'Simple Reddit Browser';
-
   url: string;
 
-  constructor(public dialog: MatDialog){}
+  constructor(public dialog: MatDialog){}  
 
   openDialog(): void {
     const dialogRef = this.dialog.open(SubdialogComponent, {
@@ -24,7 +24,8 @@ export class AppComponent {
       data: {url: this.url}
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+  dialogRef.afterClosed().subscribe(
+    result => { 
       this.url = result;
     });
   }

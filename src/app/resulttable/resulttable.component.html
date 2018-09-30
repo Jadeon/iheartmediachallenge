@@ -1,0 +1,34 @@
+
+<div class="mat-elevation-z8 data-table">
+  <mat-table #table [dataSource]="dataSource" class="resulttable"
+  matSort matSortActive="score" matSortDisableClear matSortDirection="asc">
+
+    <!-- Title Column -->
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef class="resulttable-header">Title</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.data.title}}</mat-cell>
+    </ng-container>
+
+    <!-- Score Column -->
+    <ng-container matColumnDef="score">
+      <mat-header-cell *matHeaderCellDef class="resulttable-header">Score</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.data.score}}</mat-cell>
+    </ng-container>
+
+    <!-- Comments Column -->
+    <ng-container matColumnDef="comment">
+      <mat-header-cell *matHeaderCellDef class="resulttable-header">Comments</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.data.num_comments}}</mat-cell>
+    </ng-container>
+
+    <!-- URL Column -->
+    <ng-container matColumnDef="url">
+      <mat-header-cell *matHeaderCellDef class="resulttable-header">URL</mat-header-cell>
+      <mat-cell *matCellDef="let row"><a href="http://www.reddit.com/{{row.data.permalink}}">{{row.data.permalink}}</a></mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>  
+

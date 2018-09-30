@@ -1,0 +1,24 @@
+.data-table {
+    width: 80%;
+    margin: 20px auto;
+}
+.resulttable {
+    overflow: auto;
+    width: 98%;
+    margin: 20px auto;
+  }
+
+mat-header-cell {
+    min-height: 32px;    
+    font-size: 20px;
+    display:flex;
+    justify-content:center;
+}
+
+/* Column Widths for scores & commetns*/
+.mat-column-score,
+.mat-column-comment {
+  max-width: 128px;
+  display:flex;
+  justify-content:center;
+}

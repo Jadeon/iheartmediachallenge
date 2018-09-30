@@ -7,13 +7,15 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { SubdialogComponent } from './subdialog/subdialog.component';
-import { DataTableComponent } from './data-table/data-table.component';
+
+import { HttpClientModule } from '@angular/common/http';
+import { ResulttableComponent } from './resulttable/resulttable.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SubdialogComponent,
-    DataTableComponent    
+    ResulttableComponent    
   ],
   imports: [
     BrowserModule,
@@ -24,7 +26,8 @@ import { DataTableComponent } from './data-table/data-table.component';
     FormsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    HttpClientModule
   ],
   entryComponents: [
     SubdialogComponent

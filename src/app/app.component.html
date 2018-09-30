@@ -4,21 +4,21 @@
     {{ title }}
   </h1>
 </div>
-<div id="content">
-  <div style="display:inline-flex; margin-right: 2ch">
+<div class="content">
+  <div class="label">
     Subreddit:  
   </div>
-  <div style="display:inline-flex; width: 25ch" >
+  <div class="response">
     {{this.url}}
   </div>
   <div style="display:inline-flex">
-    <button mat-raised-button (click)="openDialog()">Change Sub-Reddit</button>
+    <button mat-raised-button color="warn" (click)="openDialog()">Change Sub-Reddit</button>
   </div>
-  <div style="display:inline-flex; position:absolute; right: 20px;">
-    <button mat-raised-button>RELOAD DATA</button>
+  <div style="display:inline-flex; float:right;">
+    <button mat-raised-button color="warn">RELOAD DATA</button>
   </div>
 </div>
-<app-data-table></app-data-table>
+<app-resulttable></app-resulttable>
 
 
 
