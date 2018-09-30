@@ -8,11 +8,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 })
 export class SubdialogComponent {
 
-  constructor(
+  public constructor(
     public dialogRef: MatDialogRef<SubdialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {}
 
-    onNoClick(): void {
+    public onNoClick(): void {
       this.dialogRef.close();
     }
 }

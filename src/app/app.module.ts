@@ -1,7 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material/dialog';
-import { MatFormFieldModule, MatInputModule, MatTableModule, MatPaginatorModule, MatSortModule, MatSnackBarModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatTableModule,
+  MatPaginatorModule, MatSortModule, MatSnackBarModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
@@ -13,7 +14,7 @@ import { ResulttableComponent } from './resulttable/resulttable.component';
   declarations: [
     AppComponent,
     SubdialogComponent,
-    ResulttableComponent  
+    ResulttableComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +34,7 @@ import { ResulttableComponent } from './resulttable/resulttable.component';
   ],
   providers: [
     { provide: MatDialogRef, useValue: {} },
-	{ provide: MAT_DIALOG_DATA, useValue: [] },
+    { provide: MAT_DIALOG_DATA, useValue: [] },
   ],
   bootstrap: [AppComponent]
 })

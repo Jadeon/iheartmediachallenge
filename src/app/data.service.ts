@@ -8,18 +8,17 @@ import { Observable } from 'rxjs/Observable';
 
 export class DataService {
 
-  constructor(private http: HttpClient) { }
+  public constructor(public http: HttpClient) { }
 
-  getPosts(sort: string, url: string): Observable<RedditAPI> {
-    const href= 'https://www.reddit.com/'
-    const filter= '/top/.json?limit=10'
-    console.log(`${href}${url}${filter}`);
-    return this.http.get<RedditAPI>(`${href}${url}${filter}`)  
-    //r/gaming/top/.json?limit=10
+  public getPosts(sort: string, sub: string): Observable<RedditAPI> {
+    const href: string = 'https://www.reddit.com/';
+    const filter: string = '/top/.json?limit=10';
+    console.log(`${href}${sub}${filter}`);
+    return this.http.get<RedditAPI>(`${href}${sub}${filter}`);
   }
 }
 
-export interface RedditAPI{
+export interface RedditAPI {
   data: Data;
 }
 export interface Data {
