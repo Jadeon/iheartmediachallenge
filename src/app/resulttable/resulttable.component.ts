@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, ViewChild } from '@angular/core';
-import { MatSort, MatTableDataSource, MatDialog, MatSnackBar } from '@angular/material';
-import { HttpClient } from '@angular/common/http';
-import { DataService } from '../data.service';
+import { MatSort, MatTableDataSource, MatDialog, MatSnackBar, MatDialogRef } from '@angular/material';
+import { HttpClient} from '@angular/common/http';
+import { DataService, Posts, RedditAPI } from '../data.service';
 import { merge } from 'rxjs/observable/merge';
 import { of as observableOf } from 'rxjs/observable/of';
 import { catchError } from 'rxjs/operators/catchError';
@@ -9,6 +9,7 @@ import { map } from 'rxjs/operators/map';
 import { startWith } from 'rxjs/operators/startWith';
 import { switchMap } from 'rxjs/operators/switchMap';
 import { SubdialogComponent } from '../subdialog/subdialog.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-resulttable',
@@ -31,12 +32,12 @@ export class ResulttableComponent implements AfterViewInit {
 
   public openDialog(optional: string): void {
     const regex: RegExp = new RegExp('^r/[-a-zA-Z0-9]*[a-zA-Z90-9_]{2,23}$');
-    const dialogRef = this.dialog.open(SubdialogComponent, {
+    const dialogRef: MatDialogRef<SubdialogComponent> = this.dialog.open(SubdialogComponent, {
       width: '450px',
       data: {url: this.url, optional}
     });
 
-  dialogRef.afterClosed().subscribe(result => {
+  dialogRef.afterClosed().subscribe((result: string) => {
       this.prevurl = this.url;
       this.url = result;
       // check if url was undefined, or empty, if either case keep previous url.
@@ -61,14 +62,18 @@ export class ResulttableComponent implements AfterViewInit {
 
   public ngAfterViewInit(): void {
     this.dataService = new DataService(this.http);
+    setTimeout(() => 
     merge(this.sort.sortChange)
     .pipe(
       startWith({}),
       switchMap(() => {
         this.isLoadingResults = true;
+        // disabling this rule to provided best practices via google implementation example docs
+        // located @ https://stackblitz.com/angular/mxoemeygmlk?file=app%2Ftable-http-example.ts
+        // tslint:disable-next-line:no-non-null-assertion
         return this.dataService!.getPosts(this.sort.active, this.url);
       }),
-      map(data => {
+      map((data: RedditAPI) => {
         this.isLoadingResults = false;
         this.isRateLimitReached = false;
         this.resultsLength = data.data.dist;
@@ -79,7 +84,7 @@ export class ResulttableComponent implements AfterViewInit {
         this.isRateLimitReached = true;
         return observableOf([]);
       })
-    ).subscribe(data => this.dataSource.data = data);
+    ).subscribe((data: Posts[]) => this.dataSource.data = data));
     console.log(this.dataSource.data.length);
   }
 }

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ResulttableComponent } from './resulttable/resulttable.component';
+import { SubdialogComponent} from './subdialog/subdialog.component';
 
 @Component({
   selector: 'app-root',
@@ -7,6 +9,5 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   public title: string = 'Simple Reddit Browser';
-
   public constructor() {}
 }

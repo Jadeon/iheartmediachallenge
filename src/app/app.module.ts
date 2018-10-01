@@ -2,13 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA  } from '@angular/material/dialog';
 import { MatFormFieldModule, MatInputModule, MatTableModule,
-  MatPaginatorModule, MatSortModule, MatSnackBarModule } from '@angular/material';
+  MatPaginatorModule, MatSortModule, MatSnackBarModule, MatButtonModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { SubdialogComponent } from './subdialog/subdialog.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { ResulttableComponent } from './resulttable/resulttable.component';
+import { DataService } from './data.service';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { ResulttableComponent } from './resulttable/resulttable.component';
     MatPaginatorModule,
     MatSortModule,
     HttpClientModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatButtonModule,
+    FormsModule
   ],
   entryComponents: [
     SubdialogComponent
@@ -35,6 +38,7 @@ import { ResulttableComponent } from './resulttable/resulttable.component';
   providers: [
     { provide: MatDialogRef, useValue: {} },
     { provide: MAT_DIALOG_DATA, useValue: [] },
+    { provide: DataService},
   ],
   bootstrap: [AppComponent]
 })
