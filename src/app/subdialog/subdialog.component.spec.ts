@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { FormsModule } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { SubdialogComponent } from './subdialog.component';
+import { AppModule } from '../app.module';
 
 describe('SubdialogComponent', () => {
   let component: SubdialogComponent;
@@ -8,7 +9,19 @@ describe('SubdialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SubdialogComponent ]
+      imports: [
+        AppModule
+      ],
+      providers: [
+        {
+          provide: MatDialogRef,
+          useValue: {}
+        },
+        {
+          provide: MAT_DIALOG_DATA,
+          useValue: {}
+        }
+      ]
     })
     .compileComponents();
   }));
